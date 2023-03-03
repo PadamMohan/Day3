@@ -1,0 +1,181 @@
+1.
+package third;
+
+public class excep 
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			int a=50/0;
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println(e);
+		}
+		finally
+		{
+			System.out.println("rest of the code");
+		}
+	}
+}
+
+
+
+java.lang.ArithmeticException: / by zero
+rest of the code
+
+
+
+2.
+package third;
+
+public class multicatch 
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			int a[]=new int[5];
+			a[5]=30/0;
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("Arithmetic Exception");
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println("Array Index Out Of Bounds Exception");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Parent Exception occurs");
+		}
+		finally
+		{
+			System.out.println("rest of the code");
+		}
+	}
+}
+
+
+
+Arithmetic Exception
+rest of the code
+
+
+3.
+package third;
+
+public class exceptionnotallowedtothrow extends Exception 
+{
+	public exceptionnotallowedtothrow(String m)
+	{
+		super(m);
+	}
+	public static int add(int a, int b)throws Exception
+	{
+		if(a==b)
+			throw new exceptionnotallowedtothrow("not allowed");
+		else
+			return (a+b);
+	}
+	public static void main(String[] args)
+	{
+		try
+		{
+			System.out.println(add(10,10));
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+}
+
+
+third.exceptionnotallowedtothrow: not allowed
+
+
+
+
+4.
+package third;
+
+public class exceptionnotallowedtothrow 
+{
+	public static void test1()throws Exception
+	{
+		System.out.println("Exception in test1 method");
+		throw new Exception("thrown from test1 method");
+	}
+	public static void test2()throws Throwable
+	{
+		try
+		{
+			test1();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Inside test2 method");
+			throw e;
+		}
+	}
+	public static void main(String[] args)
+	{
+		try
+		{
+			test2();
+		}
+		catch(Throwable e)
+		{
+			System.out.println("Caught in main");
+		}
+	}
+}
+
+
+Exception in test1 method
+Inside test2 method
+Caught in main
+
+
+
+5.
+package third;
+import java.util.*;
+
+public class intexcep 
+{
+	public static void main(String[] args)
+	{
+		Scanner in=new Scanner(System.in);
+		System.out.print("Enter x,y");
+		try
+		{
+			try
+			{
+				int x=in.nextInt();
+				int y=in.nextInt();
+				System.out.println(""+(x/y));
+			}
+			catch(InputMismatchException e)
+			{
+				System.out.println("java.util.InputMismatchException");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+}
+
+
+
+Enter x,y
+10
+Hello
+java.util.InputMismatchException
+
+
